@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-#### CM 180831 New version. Read subnets to a list and then sort by prefix.
+#### CM 180831 New version. Read subnets to a list and then sort by prefix. Used to use pytricia but this is no longer needed.
 #### CM Hardcoding Notice: This script hard codes the GiAddrs. This should be done via .giaddr files names, similar to .dyn. This needs to be fixed.
 """ 
 CM 29-01-18 This script is one function and does the following:
@@ -35,11 +35,11 @@ import math
 import re
 import datetime
 import subprocess
-import pytricia
+#import pytricia
 import ipaddress
 from ipaddress import *
 import re
-pyt = pytricia.PyTricia()
+#pyt = pytricia.PyTricia()
 from sys import stdout
 networkList = []
 
@@ -102,7 +102,7 @@ cur.execute(sqlPopulateCopy)
 logWrite("Deleting IPAM")
 cur.execute("delete from IPAM where persistentStatic <> 1")
 
-# Read in routes from "CCR1Routes.terse.txt" and add to pytricia trie
+# Read in routes from "CCR1Routes.terse.txt"
 print "Populating database with IP information read from CCR1 routing table."
 for rawSubnets in open(routingTable,'r'):
 	subnet = rawSubnets[rawSubnets.find(" dst-address=")+1:].split("=")[1].split(" ")[0]
@@ -112,8 +112,6 @@ for rawSubnets in open(routingTable,'r'):
 	prefix = subnet.split('/')[1]
 	#print "DEBUG: Adding ", prefix, networkAddress
 	networkList.append([prefix, subnet, networkAddress])
-        ## Extact the info from the route read from file above.
-	# Write route to pytricia trie
 	## IP validation
 	checkSubnet = str(subnet).split('/')[0]
 	print "DEBUG: Validating IP " + str(checkSubnet)
