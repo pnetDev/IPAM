@@ -244,6 +244,7 @@ echo "The following Classes files were generated."
 grep host $baseDir/Classes/*.classes | wc
 
 echo "Checking for Duplicate leases in Classes files."
+$scriptDir/3.7checkForDuplicateMACs.sh
 result=$(python $scriptDir/findDuplicateMacs.py)
 if [ $result == "None" ] ; then 
 	echo result is $result

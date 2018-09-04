@@ -14,6 +14,8 @@ Reads "CCR1Routes.terse.txt" and creates an entry for each IP address with the f
 	o daysNotLeases=0	
 
 ##### CHANGE LOG #######
+# 180831 First 4 IPs were not being reserved. Skip counter wasn't being reset. Fixed this.
+# 180831 New version. Read subnets to a list 'networkList' and then sort by prefix. Used to use pytricia but this is no longer needed.
 # 180228 When dropping IPAM we don't drop the data for persistentStatic
 # 180222 Code cleanup.
 # 180221 Need to mark the IPs which are GiAddrs for a bridgedNetwork to GIADDR. These IPs will never be used for leases.
@@ -69,15 +71,10 @@ def validate(checkSubnet):
 now = datetime.date.today()
 currDate = str(now)
 currDate = currDate.replace('-', '')
-print "Date is " + str(currDate)
 
 subnetPosition = 0
 subnet = "0"
 subnets = "0"
-spacer = "\t\t"
-headerSpacer = "\t\t\t"
-header = " " + "subnet" + spacer + "mask" + spacer + "decMask" + headerSpacer + "found" + spacer + "notFound" + "\t" + "hosts" + spacer + "percentage" + "\t" + "gate" + headerSpacer + "NextHop"
-seperater = "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
 print ""
 print "Working...."
 
@@ -125,19 +122,19 @@ for rawSubnets in open(routingTable,'r'):
 
 ## CM Iterate through networkList and update the database. We just need to know range of addresses per subnet. 
 ## Its an iteration within an iteration.
-skip = 0
-networkList.sort()
+networkList.sort() # Now the list is sorted by prefix. In order longest to shortest prefix.
 for net in networkList:
+	skip = 0
 	prefix = net[0]
 	subnet = net[1]
 	fullSubnet = net [2]
-	ipInfo = IPNetwork(subnet)
+	ipInfo = IPNetwork(subnet) ## This contains the list of usable IPs in the subnet.
         network = ipInfo.network
 	broadcast = ipInfo.broadcast
 	subnet = unicode(subnet)
         print "Network Info:", subnet, network, broadcast
-	cur.execute("UPDATE IPAM SET LEASE_DATE =%s , TYPE='NetAddress' WHERE IPADDR = %s" , ('NoLease',network))
-        cur.execute("UPDATE IPAM SET LEASE_DATE =%s , TYPE='Broadcast'  WHERE IPADDR = %s" , ('NoLease',broadcast))
+	cur.execute("UPDATE IPAM SET LEASE_DATE =%s , TYPE='NetAddress' WHERE IPADDR = %s" , ('NoLease',network))   ## CM This won't work. The IPS may not be written to dbase yet. Won't matter as IPS will be flagged reserved.
+        cur.execute("UPDATE IPAM SET LEASE_DATE =%s , TYPE='Broadcast'  WHERE IPADDR = %s" , ('NoLease',broadcast)) ## CM This won't work. The IPS may not be written to dbase yet. Won't matter as IPS will be flagged reserved.
 	db.commit()
 	#ip = IPNetwork(subnet)
 	range = (ipaddress.ip_network(subnet).hosts())
@@ -154,9 +151,11 @@ for net in networkList:
                         #print "Writing IP " + ip
                         cur.execute("insert into IPAM  (IPADDR, LEASED, SUBNET, SharedNetwork, daysNotLeased, persistentStatic) VALUES (%s, 'NotLeased', %s, 'None', '0','0')" , (ip,subnet))
 			if skip < 5:
+				print "DEBUG: Skip is < 5", ip, "RESERVED"
 				logString = ip, " flagged as RESERVED"
 				logWrite(logString)
                         	cur.execute("UPDATE IPAM SET daysNotLeased = %s, TYPE = 'RESERVED' WHERE IPADDR = %s" , ('0', ip))
+				db.commit()
                         else:
 				cur.execute("UPDATE IPAM SET daysNotLeased = %s, TYPE = 'Static' WHERE IPADDR = %s" , ('0', ip))
                         db.commit()
