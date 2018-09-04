@@ -122,7 +122,7 @@ for rawSubnets in open(routingTable,'r'):
 
 ## CM Iterate through networkList and update the database. We just need to know range of addresses per subnet. 
 ## Its an iteration within an iteration.
-networkList.sort() # Now the list is sorted by prefix. In order longest to shortest prefix.
+networkList.sort() # Now the list is sorted by prefix. In order shortest to longest prefix.
 for net in networkList:
 	skip = 0
 	prefix = net[0]
