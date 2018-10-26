@@ -10,14 +10,14 @@ import datetime
 #180223 Had to mark 88.151.27.80/28 as Ai-Bridges as it overlaps with a Coolg subnet. 88.151.27.80/28 IPs are flagged as reserved so will never be touched.
 #180219	sharedNetwork and subnet for persistentStatics will set to reserved.
 
-
+Log="/root/IPAM/bin/ipam.Log"
 
 def logWrite(logText):
         now =  datetime.datetime.now()
         currDate = str(now)
         #currDate = currDate.replace('-', '')
         logText = str(logText)
-        file = open('ipam.Log','a')
+        file = open(Log,'a')
         file.write(currDate + " flagPersistentStatic \t")
         file.write(logText)
         file.write('\n')

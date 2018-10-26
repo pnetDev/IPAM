@@ -31,13 +31,14 @@ import MySQLdb
 import math
 import re
 import datetime
+Log="/root/IPAM/bin/ipam.Log"
 
 def logWrite(logText):
         now =  datetime.datetime.now()
         currDate = str(now)
         #currDate = currDate.replace('-', '')
         logText = str(logText)
-        file = open('ipam.Log','a')
+        file = open(Log,'a')
         file.write(currDate + " compareYesterday \t")
         file.write(logText)
         file.write('\n')

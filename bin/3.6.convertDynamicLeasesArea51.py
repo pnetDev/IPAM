@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# CM Hardcoding Notice: Fixed this by using a list.
+# CM Hardcoding Notice: No hardcoding used. Fixed this by using a list.
 
 
 """
@@ -33,7 +33,7 @@ now = datetime.date.today()
 currDate = str(now)
 currDate = currDate.replace('-', '')
 currDate = str(currDate)
-
+Log="/root/IPAM/bin/ipam.Log"
 #db = MySQLdb.connect("localhost","root","D0xl1nk$","staticIPs" )
 db = MySQLdb.connect("10.1.1.51","ipam","ipam$2o18$","docsis" )
 
@@ -44,7 +44,7 @@ def logWrite(logText):
         now =  datetime.datetime.now()
         currDate = str(now)
         logText = str(logText)
-        file = open('ipam.Log','a')
+        file = open(Log,'a')
         file.write(currDate + " convDynamic \t")
         file.write(logText)
         file.write('\n')
@@ -143,15 +143,16 @@ for lease in cur.fetchall():
 		db.commit()
 print "Done."
 logWrite("Done.")
-logWrite("Marking 88.151.27.80/28 as Ai-Bridges")
+#logWrite("Marking 88.151.27.80/28 as Ai-Bridges")
 ## CM I don't like doing this but have too because 88.151.27.80/28 is for AI Bridges and DHCP knows nothing about the subnet, and a Coolg subnet overlaps.
 ## This fixes the problem. We just overwite the whole subnet and mark the addreses as static. They will never be used.
-logWrite("Correctly identifying the following SharedNetworks, bug in '2.readDhcpdConfUpdateDatabaseArea51.Pytricia.py' needs to be fixed.")
-logWrite("Applying Pytricia LPM bug fix for 88.151.27.80/28, 37.128.195.192/28, 81.31.215.192/26, 37.128.196.128/27, 37.128.196.176/28, 37.128.196.192/27, 88.151.28.224/27")
-logWrite("Applying Pytricia LPM bug fix for 88.151.29.0/26, 88.151.29.64/27, 88.151.29.112/28, 88.151.29.128/25, 88.151.29.96/28, 88.151.25.160/27")
-logWrite("Applying Pytricia work around for M10k-Bun3_H_temp")
+#logWrite("Correctly identifying the following SharedNetworks, bug in '2.readDhcpdConfUpdateDatabaseArea51.Pytricia.py' needs to be fixed.")
+#logWrite("Applying Pytricia LPM bug fix for 88.151.27.80/28, 37.128.195.192/28, 81.31.215.192/26, 37.128.196.128/27, 37.128.196.176/28, 37.128.196.192/27, 88.151.28.224/27")
+#logWrite("Applying Pytricia LPM bug fix for 88.151.29.0/26, 88.151.29.64/27, 88.151.29.112/28, 88.151.29.128/25, 88.151.29.96/28, 88.151.25.160/27")
+#logWrite("Applying Pytricia work around for M10k-Bun3_H_temp")
 
-## CM 180831 No need to hardcode anymore as I rewrote the way dhcpd.conf is parsed using a list and sorting the list by prefix.
+## CM 180831 No need to hardcode anymore as I rewrote the way dhcpd.conf is parsed using a list and sorting the list by prefix. Also non dhcp subnets are now delcared in dhcpd.conf.
+#Leaving the code here to jog my memory.
 '''
 cur.execute("update IPAM set SharedNetwork = 'AIBridgesSE' , TYPE = 'Reserved' where SUBNET  = '37.128.195.248/29'")
 cur.execute("update IPAM set SharedNetwork = 'RhodePropertiesGlue' , TYPE = 'Reserved' where SUBNET  = '37.128.195.244/30'")
@@ -172,6 +173,6 @@ cur.execute("update IPAM set SharedNetwork = 'M10k-Bun4_EV' where SUBNET  = '88.
 cur.execute("update IPAM set SharedNetwork = 'Forth-Bridged' where SUBNET  = '88.151.25.160/27'")
 ## Temp for for M10k-Bun3_H_temp dynamic range
 cur.execute("update IPAM set SharedNetwork = 'M10k-Bun3_H' where SUBNET  = '88.151.26.192/27'")
-db.commit()
 '''
+db.commit()
 db.close()		

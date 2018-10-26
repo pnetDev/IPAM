@@ -34,7 +34,7 @@ import datetime
 import netaddr
 from netaddr import EUI
 pyt = pytricia
-
+Log="/root/IPAM/bin/ipam.Log"
 now = datetime.date.today()
 currDate = str(now)
 currDate = currDate.replace('-', '')
@@ -75,7 +75,7 @@ def logWrite(logText):
 	currDate = str(now)
 	currDate = currDate.replace('-', '')
 	logText = str(logText)
-	file = open('ipam.Log','a')
+	file = open(Log,'a')
 	file.write(currDate + " readLease \t")
 	file.write(logText)
 	file.write('\n')

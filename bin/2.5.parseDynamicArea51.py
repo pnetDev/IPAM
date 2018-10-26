@@ -21,7 +21,7 @@ from netaddr import IPAddress
 #db = MySQLdb.connect("localhost","root","D0xl1nk$","staticIPs" )
 db = MySQLdb.connect("10.1.1.51","ipam","ipam$2o18$","docsis" )
 cur = db.cursor()
-
+Log="/root/IPAM/bin/ipam.Log"
 debug = "Debug"
 baseDir="/root/IPAM/"
 fileDir=str(baseDir) + "dhcp/"
@@ -33,7 +33,7 @@ def logWrite(logText):
         currDate = str(now)
         #currDate = currDate.replace('-', '')
         logText = str(logText)
-        file = open('ipam.Log','a')
+        file = open(Log,'a')
         file.write(currDate + " parseDynamic \t")
         file.write(logText)
         file.write('\n')

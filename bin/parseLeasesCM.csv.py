@@ -1,6 +1,10 @@
 #!/usr/bin/python
 import datetime, bisect
 
+'''
+CM This is a script I found online and I modified it for what I need. It will parse active DHCP leases and write to a file
+'''
+
 leases="/root/IPAM/parsedFiles/dhcpd.leasesAllServers"
 
 def parse_timestamp(raw_str):

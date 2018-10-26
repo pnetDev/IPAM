@@ -26,13 +26,14 @@ import re
 import os
 import glob
 import datetime
+Log="/root/IPAM/bin/ipam.Log"
 
 def logWrite(logText):
         now =  datetime.datetime.now()
         currDate = str(now)
         #currDate = currDate.replace('-', '')
         logText = str(logText)
-        file = open('ipam.Log','a')
+        file = open(Log,'a')
         file.write(currDate + " generateClasses \t")
         file.write(logText)
         file.write('\n')

@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
-#### CM 180831 New version. Read subnets to a list and then sort by prefix. Used to use pytricia but this is no longer needed.
-#### CM Hardcoding Notice: This script hard codes the GiAddrs. This should be done via .giaddr files names, similar to .dyn. This needs to be fixed.
+#### CM Hardcoding Notice: This script hard codes the GiAddrs. This should be done via .giaddr files names, similar to .dyn or a database table.  This needs to be reviewed.
 """ 
 CM 29-01-18 This script is one function and does the following:
 Creates a duplicate of table IPAM as IPAM<currentDate>
@@ -14,9 +13,10 @@ Reads "CCR1Routes.terse.txt" and creates an entry for each IP address with the f
 	o daysNotLeases=0	
 
 ##### CHANGE LOG #######
+# 180906 The shell script has dumped IPAM_PREVIOUS. This script will drop IPAM_PREVIOUS. Copy IPAM as IPAM_PREVIOUS and drop IPAM.
 # 180831 First 4 IPs were not being reserved. Skip counter wasn't being reset. Fixed this.
 # 180831 New version. Read subnets to a list 'networkList' and then sort by prefix. Used to use pytricia but this is no longer needed.
-# 180228 When dropping IPAM we don't drop the data for persistentStatic
+# 180228 When dropping IPAM we don't drop the data for persistentStatic.
 # 180222 Code cleanup.
 # 180221 Need to mark the IPs which are GiAddrs for a bridgedNetwork to GIADDR. These IPs will never be used for leases.
 # 180218 Setting first 4 IPs of a network to TYPE 'RESERVED'
@@ -44,7 +44,7 @@ import re
 #pyt = pytricia.PyTricia()
 from sys import stdout
 networkList = []
-
+Log="/root/IPAM/bin/ipam.Log"
 baseDir="/root/IPAM/"
 fileName="parsedFiles/CCR1Routes.terse.txt"
 routingTable=str(baseDir) + str(fileName)
@@ -53,7 +53,7 @@ def logWrite(logText):
         now =  datetime.datetime.now()
         currDate = str(now)
         logText = str(logText)
-        file = open('ipam.Log','a')
+        file = open(Log,'a')
         file.write(currDate + " parseRoutes \t")
         file.write(logText)
         file.write('\n')
@@ -133,8 +133,6 @@ for net in networkList:
 	broadcast = ipInfo.broadcast
 	subnet = unicode(subnet)
         print "Network Info:", subnet, network, broadcast
-	cur.execute("UPDATE IPAM SET LEASE_DATE =%s , TYPE='NetAddress' WHERE IPADDR = %s" , ('NoLease',network))   ## CM This won't work. The IPS may not be written to dbase yet. Won't matter as IPS will be flagged reserved.
-        cur.execute("UPDATE IPAM SET LEASE_DATE =%s , TYPE='Broadcast'  WHERE IPADDR = %s" , ('NoLease',broadcast)) ## CM This won't work. The IPS may not be written to dbase yet. Won't matter as IPS will be flagged reserved.
 	db.commit()
 	#ip = IPNetwork(subnet)
 	range = (ipaddress.ip_network(subnet).hosts())
