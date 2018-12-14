@@ -13,6 +13,7 @@
 
  Log Changes here
 
+181101 Added a counter to report the number of dynamic conversions.
 180801 As discussed with Ray. If a CPE has a dynamic lease any exisiting static entry must be deleted/reset. 
 180226 Same as below for '81.31.215.192/26' needs to be marked 'Slieveboy-BSR7'
 180226 Have to mark 37.128.195.192/28 as K13-Bundle3. I need to rewrite '2.readDhcpdConfUpdateDatabaseArea51.py' as its not correctly identifying shared networks.
@@ -50,6 +51,7 @@ def logWrite(logText):
         file.write('\n')
 
 leaseCount = 0
+dynamicConversionCounter = 0
 print "Working........"
 print "Finding dynamic leases"
 sql = "select IPADDR,MAC,ModemMac,SharedNetwork,TYPE,LEASE_DATE from IPAM where TYPE='Dynamic' and LEASED='Yes';"
@@ -140,8 +142,12 @@ for lease in cur.fetchall():
 		logString = " DYN IP CONVERSION: Replacing " + IP + " with " + freeIP,MAC,sharedNetwork
 		logWrite(logString)
 		cur.execute("UPDATE IPAM SET LEASED ='leasePending' , SharedNetwork = %s , LEASE_DATE='leasePending', TYPE='Static' , MAC = %s, ModemMac=%s, wasDyn = %s WHERE IPADDR = %s" , (sharedNetwork, MAC, Modem, IP, freeIP))
+		dynamicConversionCounter = dynamicConversionCounter + 1
 		db.commit()
 print "Done."
+print dynamicConversionCounter, "Dynamic IPs converted."
+logString=str(dynamicConversionCounter) + " Dynamic IPs converted."
+logWrite(logString)
 logWrite("Done.")
 #logWrite("Marking 88.151.27.80/28 as Ai-Bridges")
 ## CM I don't like doing this but have too because 88.151.27.80/28 is for AI Bridges and DHCP knows nothing about the subnet, and a Coolg subnet overlaps.

@@ -38,4 +38,5 @@ if duplicate == "false":
 	print "None"
 else:
 	print "Duplicate=Yes."
+	print "Usually an installers laptop causes this issue. Manually grep the MACs in /root/IPAM/Classes and investigate."
 sys.exit(0) 
