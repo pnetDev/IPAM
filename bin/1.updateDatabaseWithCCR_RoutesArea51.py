@@ -207,6 +207,7 @@ cur.execute("UPDATE IPAM SET daysNotLeased = %s, TYPE = 'GIADDR', SharedNetwork 
 cur.execute("UPDATE IPAM SET daysNotLeased = %s, TYPE = 'GIADDR', SharedNetwork = 'Mish-Bridged' WHERE IPADDR = %s" , ('0', '37.128.198.133'))
 cur.execute("UPDATE IPAM SET daysNotLeased = %s, TYPE = 'GIADDR', SharedNetwork = 'Mish-Bridged' WHERE IPADDR = %s" , ('0', '37.128.196.4'))
 cur.execute("UPDATE IPAM SET daysNotLeased = %s, TYPE = 'GIADDR', SharedNetwork = 'Mish-Bridged' WHERE IPADDR = %s" , ('0', '37.128.197.196'))
+cur.execute("UPDATE IPAM SET daysNotLeased = %s, TYPE = 'GIADDR', SharedNetwork = 'Mish-Bridged' WHERE IPADDR = %s" , ('0', '81.31.213.8'))
 db.commit()
 db.close()
 logWrite("IPs written to IPAM, prefix known, persistentStatics known, sharedNetwork not known yet.")
