@@ -16,7 +16,7 @@ classesNames = []
 macList      = []
 
 ## CM New code doing this without a need for a shell script to generate a text file.
-classesNames = (glob.glob("/root/IPAM/Classes/*.classes")) ## This creates a list containing the classes file names.
+classesNames = (glob.glob("/pnetadmin/IPAM/Classes/*.classes")) ## This creates a list containing the classes file names.
 
 # Open each file name in classesNames and add the MAC address to macList
 for file in classesNames:
@@ -38,5 +38,5 @@ if duplicate == "false":
 	print "None"
 else:
 	print "Duplicate=Yes."
-	print "Usually an installers laptop causes this issue. Manually grep the MACs in /root/IPAM/Classes and investigate."
+	print "Usually an installers laptop causes this issue. Manually grep the MACs in /pnetadmin/IPAM/Classes and investigate."
 sys.exit(0) 

@@ -25,13 +25,13 @@ from netaddr import *
 
 ## Variables
 #db = MySQLdb.connect("localhost","root","D0xl1nk$","staticIPs" )
-Log="/root/IPAM/bin/ipam.Log"
+Log="/pnetadmin/IPAM/bin/ipam.Log"
 db = MySQLdb.connect("10.1.1.51","ipam","ipam$2o18$","docsis" )
 cur = db.cursor()
 networkList = []
 sharedNetwork="notRead"
 skip=0
-baseDir="/root/IPAM/"
+baseDir="/pnetadmin/IPAM/"
 fileName="parsedFiles/dhcpdSubnets.confParsed"
 dhcpdConfs=str(baseDir) + str(fileName)
 

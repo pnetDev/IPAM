@@ -26,14 +26,14 @@ echo ""
 ## CM 180306 Files previously copied from DHCP servers are renamed with current dates before being copied from the DHCP servers.
 ## CM 180302 There are private routes in dhcpd.conf which aren't routes on CCR1. These are ignored when 'dhcpdSubnets.confParsed' is created.
 ## CM 180223 Need to skip '88.151.27.80/28' This is a reserved subnet for AiBridges and IPAM is reading this as Coolg
-## CM 180218 Calls /root/7.5.copyClassesRestartDHCP75.sh on 10.1.1.24 before script ends.
+## CM 180218 Calls /pnetadmin/7.5.copyClassesRestartDHCP75.sh on 10.1.1.24 before script ends.
 ## CM 180207 Not finding 10.1.10.0 in dhcpd.confParsed
 ## CM 180207 Removed CCR1 route filtering because we were missing P2P management subnets.
 ## CM 180130 Gets the *.dyn files so the database can be updated for Dynamic ranges
 
 basename=$0
 trapserver=10.1.1.7
-baseDir=/root/IPAM
+baseDir=/pnetadmin/IPAM
 parsedFiles=$baseDir/parsedFiles
 dhcp=$baseDir/dhcp
 classes=$baseDir/Classes
@@ -72,7 +72,7 @@ Log=$baseDir/bin/ipam.Log
 echo "=====================================================" >> $Log
 echo "" >> $Log
 echo $currDate Starting launcher bash script >> $Log
-echo Backing up IPAM as /root/IPAM/dbaseBackups/IPAM51.$currDate
+echo Backing up IPAM as /pnetadmin/IPAM/dbaseBackups/IPAM51.$currDate
 echo $currDate Getting CCR1 Routing table....
 echo $currDate Getting CCR1 Routing table.... >> $Log
 

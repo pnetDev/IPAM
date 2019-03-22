@@ -31,7 +31,7 @@ import MySQLdb
 import math
 import re
 import datetime
-Log="/root/IPAM/bin/ipam.Log"
+Log="/pnetadmin/IPAM/bin/ipam.Log"
 
 def logWrite(logText):
         now =  datetime.datetime.now()

@@ -2,7 +2,7 @@
 source /root/.bashrc
 clear
 currDate=$(date +%y%m%d%H%M)
-Log=/root/IPAM/bin/ipam.Log
+Log=/pnetadmin/IPAM/bin/ipam.Log
 ## Copy new classes file and restart dhcp.
 echo "$currDate Calling /root/7.5.copyClassesRestartDHCP75.sh on 10.1.1.75" >> $Log
 echo "$currDate Calling /root/7.6.copyClassesRestartDHCP66.sh on 10.1.1.66" >> $Log

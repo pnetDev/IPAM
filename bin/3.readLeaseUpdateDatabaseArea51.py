@@ -34,13 +34,13 @@ import datetime
 import netaddr
 from netaddr import EUI
 pyt = pytricia
-Log="/root/IPAM/bin/ipam.Log"
+Log="/pnetadmin/IPAM/bin/ipam.Log"
 now = datetime.date.today()
 currDate = str(now)
 currDate = currDate.replace('-', '')
 print "Date is " + str(currDate)
 currDate = str(currDate)
-baseDir="/root/IPAM/"
+baseDir="/pnetadmin/IPAM/"
 fileName="parsedFiles/dhcpd.leasesAllServersParsed"
 leases=str(baseDir) + str(fileName)
 routingTable=str(baseDir) + "parsedFiles/CCR1Routes.terse.txt"

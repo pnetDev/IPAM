@@ -5,7 +5,7 @@
 # Pass the filename to Python script. The pyton script will read all mac addresses to a Python list and check for duplicates.
 #
 # Variables
-workingDir=/root/IPAM/
+workingDir=/pnetadmin/IPAM/
 classes=$workingDir/Classes
 duplicate="False"
 log=$workingDir/duplicates.Log

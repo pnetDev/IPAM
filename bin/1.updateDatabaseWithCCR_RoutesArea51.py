@@ -44,8 +44,8 @@ import re
 #pyt = pytricia.PyTricia()
 from sys import stdout
 networkList = []
-Log="/root/IPAM/bin/ipam.Log"
-baseDir="/root/IPAM/"
+Log="/pnetadmin/IPAM/bin/ipam.Log"
+baseDir="/pnetadmin/IPAM/"
 fileName="parsedFiles/CCR1Routes.terse.txt"
 routingTable=str(baseDir) + str(fileName)
 

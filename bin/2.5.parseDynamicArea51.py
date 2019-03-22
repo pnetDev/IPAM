@@ -21,9 +21,9 @@ from netaddr import IPAddress
 #db = MySQLdb.connect("localhost","root","D0xl1nk$","staticIPs" )
 db = MySQLdb.connect("10.1.1.51","ipam","ipam$2o18$","docsis" )
 cur = db.cursor()
-Log="/root/IPAM/bin/ipam.Log"
+Log="/pnetadmin/IPAM/bin/ipam.Log"
 debug = "Debug"
-baseDir="/root/IPAM/"
+baseDir="/pnetadmin/IPAM/"
 fileDir=str(baseDir) + "dhcp/"
 fileName="parsedFiles/dynamicRanges.txt"
 dynamics=str(baseDir) + str(fileName)

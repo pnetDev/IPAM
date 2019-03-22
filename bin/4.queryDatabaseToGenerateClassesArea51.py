@@ -26,7 +26,7 @@ import re
 import os
 import glob
 import datetime
-Log="/root/IPAM/bin/ipam.Log"
+Log="/pnetadmin/IPAM/bin/ipam.Log"
 
 def logWrite(logText):
         now =  datetime.datetime.now()
@@ -41,8 +41,8 @@ def logWrite(logText):
 print ""
 print "Working...."
 logWrite("Generating classes files")
-## Remove /root/staticIPs/Classes/*
-files = glob.glob('/root/staticIPs/debug/Classes/*')
+## Remove /pnetadmin/staticIPs/Classes/*
+files = glob.glob('/pnetadmin/staticIPs/debug/Classes/*')
 # Doing this by shell script instead
 #for f in files:
 #    os.remove(f)
@@ -51,7 +51,7 @@ files = glob.glob('/root/staticIPs/debug/Classes/*')
 db = MySQLdb.connect("10.1.1.51","ipam","ipam$2o18$","docsis" )
 
 cur = db.cursor()
-baseDir="/root/IPAM/"
+baseDir="/pnetadmin/IPAM/"
 fileDir="Classes/"
 
 

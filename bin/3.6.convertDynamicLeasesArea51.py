@@ -34,7 +34,7 @@ now = datetime.date.today()
 currDate = str(now)
 currDate = currDate.replace('-', '')
 currDate = str(currDate)
-Log="/root/IPAM/bin/ipam.Log"
+Log="/pnetadmin/IPAM/bin/ipam.Log"
 #db = MySQLdb.connect("localhost","root","D0xl1nk$","staticIPs" )
 db = MySQLdb.connect("10.1.1.51","ipam","ipam$2o18$","docsis" )
 

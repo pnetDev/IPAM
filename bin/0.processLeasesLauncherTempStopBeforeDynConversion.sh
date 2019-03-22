@@ -33,7 +33,7 @@ echo ""
 
 basename=$0
 trapserver=10.1.1.7
-baseDir=/root/IPAM
+baseDir=/pnetadmin/IPAM
 parsedFiles=$baseDir/parsedFiles
 dhcp=$baseDir/dhcp
 classes=$baseDir/Classes
@@ -72,7 +72,7 @@ Log=$baseDir/bin/ipam.Log
 echo "=====================================================" >> $Log
 echo "" >> $Log
 echo $currDate Starting launcher bash script >> $Log
-echo Backing up IPAM as /root/IPAM/dbaseBackups/IPAM51.$currDate
+echo Backing up IPAM as /pnetadmin/IPAM/dbaseBackups/IPAM51.$currDate
 echo $currDate Getting CCR1 Routing table....
 echo $currDate Getting CCR1 Routing table.... >> $Log
 
