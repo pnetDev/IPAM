@@ -85,15 +85,15 @@ cur = db.cursor()
 ## Build sql query
 sqlCopy = "CREATE TABLE IPAM" + str(currDate) + " LIKE IPAM"
 sqlPopulateCopy = "INSERT IPAM" + str(currDate) + " SELECT * FROM IPAM"
-dropCopy = "DROP TABLE IF EXISTS IPAM" + str(currDate)
+#dropCopy = "DROP TABLE IF EXISTS IPAM" + str(currDate)
 
 ## Create a duplicate of IPAM
 logWrite("Creating a copy of IPAM")
 print "Creating a copy of IPAM as IPAM" + str(currDate) + " and populating it."
 
-cur.execute(dropCopy)
 cur.execute(sqlCopy)
 cur.execute(sqlPopulateCopy)
+#cur.execute(dropCopy)
 
 # Delete data from  IPAM, apart form persistentStatics
 logWrite("Deleting IPAM")
