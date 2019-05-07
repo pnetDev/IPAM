@@ -7,8 +7,6 @@ import datetime
 #This script will look up all IPs in the pesistentStatic table and update found IPs in IPAM with perssistentStatic = 1, sharedNetwork is set to reserved.
 
 #Log Changes here
-#180223 Had to mark 88.151.27.80/28 as Ai-Bridges as it overlaps with a Coolg subnet. 88.151.27.80/28 IPs are flagged as reserved so will never be touched.
-#180219	sharedNetwork and subnet for persistentStatics will set to reserved.
 
 Log="/pnetadmin/IPAM/bin/ipam.Log"
 
