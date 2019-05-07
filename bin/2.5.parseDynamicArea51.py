@@ -6,7 +6,7 @@ This script reads "dynamicRanges.txt" to get the names of the  *.dyn files.
 It then reads each *.dyn file, figures out the IP range and flags IPs which are from a .dyn range in the IPAM table as TYPE 'Dynamic'
 
 Log Changes here:
-
+09-04-19 Comments weren't being processed properly. Fixed this by looking for '#' and if '#' is found the iteration is skipped using 'continue' command.
 """
 
 import ipaddress
@@ -63,7 +63,10 @@ for sharedNetwork in open(dynamics,'r'):
         fileName = str(fileDir) + str(sharedNetwork) + ".dyn"
         for binding in open(fileName,'r'):
 		if "#" in binding:
-			process = False
+			print "# Detected", binding, sharedNetwork
+			logText="# Detected", binding, fileName
+			logWrite(logText)
+			continue
 		if process == True:
                 	rangeStart = binding.split(" ")[2]
                 	rangeEnd  =  binding.split(" ")[3]
