@@ -13,7 +13,7 @@ Reads "CCR1Routes.terse.txt" and creates an entry for each IP address with the f
 	o daysNotLeases=0	
 
 ##### CHANGE LOG #######
-# 190507 CM Found a bug, currently when the IPAM table is dropped entries with persistent static aren't dropped. This causes a problem if a static IP changes. Now all the table is dropped and the persistant statics are read by the next script. Ensure to keep the persistantStatic database uptoday. This is where the IPs should be adde and removed and IPAM will dynamically update these.
+# 190507 CM Found a bug, currently when the IPAM table is dropped entries with persistent static aren't dropped. This causes a problem if a static IP changes. Now all the table is dropped and the persistant statics are read by the next script. Ensure to keep the persistantStatic database up to date. This is where the IPs should be added and removed and IPAM will dynamically update these.
 # 180906 The shell script has dumped IPAM_PREVIOUS. This script will drop IPAM_PREVIOUS. Copy IPAM as IPAM_PREVIOUS and drop IPAM.
 # 180831 First 4 IPs were not being reserved. Skip counter wasn't being reset. Fixed this.
 # 180831 New version. Read subnets to a list 'networkList' and then sort by prefix. Used to use pytricia but this is no longer needed.
