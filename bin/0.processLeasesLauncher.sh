@@ -19,6 +19,7 @@ echo ""
 
 ## Log Changes here
 
+## CM 191104 New routine added which will ready the PPPoE users from radcheck.radius and update IPAM as PPPoE-USER for the IP addresses found.
 ## CM 181218 Code cleanup. Removed redundant 'commented-out' lines.
 ## CM 181214 Added functions which will check the error status of the python scripts. If there is an error this script is aborted. 
 ## CM 180906 Current database is backed up to IPAM/dbaseBackups/IPAM$currDate. Table IPAM_PREVIOUS is dropped. Table IPAM is copied as IPAM_PREVIOUS. Table IPAM is dropped.
@@ -250,6 +251,10 @@ echo "Converting Dynamic Leases to Static"
 #echo "SKIPPING: Converting Dynamic Leases to Static"
 $scriptDir/3.6.convertDynamicLeasesArea51.py ; checkExecution $string
 sleep 5
+
+## Updating PPPoE users. The table radreply.radius is read
+echo "Updating IPAM with PPPoE-USERS"
+$scriptDir/5.updatePPPoEUserArea51.py
 
 ## Generating Classes files.
 string="4.queryDatabaseToGenerateClassesArea51.py"
