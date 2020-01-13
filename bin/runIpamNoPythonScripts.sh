@@ -70,8 +70,6 @@ currDate=$(date +%y%m%d%H%M)
 echo ""
 echo ""
 Log=$baseDir/bin/ipam.Log
-mv $Log $Log-$currDate
-
 echo "=====================================================" >> $Log
 echo "" >> $Log
 echo $currDate Starting launcher bash script >> $Log
@@ -210,6 +208,10 @@ echo 233 = $leased233
 
 echo "Total Leased: $total"
 echo ""
+
+echo "EXIT no Python Scripts Called."
+exit
+
 
 ### Call Python Scripts, with error checking. 
 echo $currDate Calling Python scripts  >> $Log
