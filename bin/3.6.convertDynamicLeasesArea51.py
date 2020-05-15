@@ -10,9 +10,7 @@
  Resets dynamic lease
  Creates static lease
  Sends trap if there is no free static lease available.
-
  Log Changes here
-
 181101 Added a counter to report the number of dynamic conversions.
 180801 As discussed with Ray. If a CPE has a dynamic lease any exisiting static entry must be deleted/reset. 
 180226 Same as below for '81.31.215.192/26' needs to be marked 'Slieveboy-BSR7'
@@ -22,7 +20,6 @@
 180221 Need to was to see what the dynIP was for a conversion so it's easier to debug.
 180222 Code cleanup.
 180219 IPs flagged as persistentStatic will never be recycled. sql = "select IPADDR from IPAM where TYPE='Static' and LEASED='NotLeased' and SharedNetwork='" + sharedNetwork + "' and persistentStatic <> '1' order by IPADDR desc limit 1" 
-
 """
 import MySQLdb
 import math
@@ -166,7 +163,6 @@ cur.execute("update IPAM set SharedNetwork = 'Ai-Bridges' , TYPE = 'Reserved' wh
 cur.execute("update IPAM set SharedNetwork = 'K13-Bundle3' where SUBNET  = '37.128.195.192/28'")
 cur.execute("update IPAM set SharedNetwork = 'Slieveboy-BSR7' where SUBNET  = '81.31.215.192/26'")
 ## CM 180302 These need to be manually set also until I fix LPM for reading dhcpd.conf
-
 cur.execute("update IPAM set SharedNetwork = 'M10k-Bun4_EV' where SUBNET  = '37.128.196.128/27'")
 cur.execute("update IPAM set SharedNetwork = 'Clara4-uBR' where SUBNET  = '37.128.196.176/28'")
 cur.execute("update IPAM set SharedNetwork = 'Clara4-uBR' where SUBNET  = '37.128.196.192/27'")

@@ -63,6 +63,7 @@ for row in cur.fetchall():
 	IP = row[0]
         MAC = row[1]
         subnet = row[2]
+	logWrite(subnet)
 	sharedNetwork = row[3]
 	newSubnet = subnet.replace('/','_')
 	#print IP + "\t" + MAC + "\t" + subnet

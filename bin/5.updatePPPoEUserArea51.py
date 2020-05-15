@@ -15,7 +15,7 @@ def logWrite(logText):
         #currDate = currDate.replace('-', '')
         logText = str(logText)
         file = open(Log,'a')
-        file.write(currDate + " flagPersistentStatic \t")
+        file.write(currDate + " flagPPPoEUser \t")
         file.write(logText)
         file.write('\n')
 

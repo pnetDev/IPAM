@@ -19,6 +19,7 @@ echo ""
 
 ## Log Changes here
 
+## CM 200313 Igoring /30 subnets.
 ## CM 191104 New routine added which will ready the PPPoE users from radcheck.radius and update IPAM as PPPoE-USER for the IP addresses found.
 ## CM 181218 Code cleanup. Removed redundant 'commented-out' lines.
 ## CM 181214 Added functions which will check the error status of the python scripts. If there is an error this script is aborted. 
@@ -83,7 +84,6 @@ echo $currDate Getting CCR1 Routing table.... >> $Log
 scp -q pnetadmin@10.1.1.63://CCR1Routes.IPAM.txt $parsedFiles/CCR1Routes.IPAM.txt
 cp $parsedFiles/CCR1Routes.IPAM.txt  $parsedFiles/CCR1Routes.terse.raw.txt
 grep -v "#" $parsedFiles/CCR1Routes.terse.raw.txt  | grep -v "/32" | grep -v 88.151.27.80/28 > $parsedFiles/CCR1Routes.terse.txt  ## We don't want /32 routes, we don't want 88.151.27.80/28
-
 #echo "Temp Exit"
 #exit
 
@@ -242,10 +242,10 @@ $scriptDir/3.readLeaseUpdateDatabaseArea51.py ; checkExecution $string
 sleep 2
 
 ## Check for IPs leased yesterday and not today
-echo "Checking for IPs leased yesterday and not today."
-string="/3.5.compareTodaysLeasesToYesterdayArea51.py"
-$scriptDir/3.5.compareTodaysLeasesToYesterdayArea51.py ; checkExecution $string
-sleep 2
+#echo "Checking for IPs leased yesterday and not today."
+#string="/3.5.compareTodaysLeasesToYesterdayArea51.py"
+#$scriptDir/3.5.compareTodaysLeasesToYesterdayArea51.py ; checkExecution $string
+#sleep 2
 
 ## Convert Dynamic Leases to Static.
 string="3.6.convertDynamicLeasesArea51.py"
